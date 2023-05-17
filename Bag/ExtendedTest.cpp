@@ -217,31 +217,8 @@ void testRemove()
 	b.add(0);
 	assert(b.size() == 402);
 	testIteratorSteps(b);
-	std::vector<int> indecies;
-	for (int i = 0; i < b.capacity; i++)
-		if (b.table[i].value >= -30 and b.table[i].value <= 30)
-			indecies.push_back(i);
 	for (int i = -30; i < 30; i++)
 { 
-		for (auto it = indecies.begin(); it != indecies.end(); it++)
-			if (b.table[*it].frequency == -111111)
-				std::cout << "*" << ' ';
-			else 
-			std::cout << b.table[*it].frequency << ' ' ;
-		std::cout << '\n';
-		for (auto it = indecies.begin(); it != indecies.end(); it++)
-			if (b.table[*it].value == -111111)
-				std::cout << "*" << ' ';
-			else
-			std::cout << b.table[*it].value << ' ' ;
-		std::cout << '\n';
-		for (auto it = indecies.begin(); it != indecies.end(); it++)
-			if (b.table[*it].next == -111111)
-				std::cout << "*" << ' ';
-			else
-			std::cout << b.table[*it].next << ' ' ;
-		std::cout << '\n';
-		std::cout << "'\n--------------------------------------------------\n'";
 		assert(b.search(i) == true);
 		assert(b.remove(i) == true);
 		if (i != 0)
@@ -451,6 +428,7 @@ void testQuantity()
 { 
 		for (int j = 40000; j >= -40000; j--)
 {
+			bool a = b.search(j);
 			b.remove(j);
 		}
 	}

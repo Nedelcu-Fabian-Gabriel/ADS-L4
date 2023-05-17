@@ -25,7 +25,7 @@ Bag::Bag()
 }
 
 Bag::Bag(unsigned int cap)
-	:capacity{ cap }, s{ 0 }, table{ new Element[capacity] }
+	:capacity{ cap }, s{ 0 }, table{ new Element[cap] }
 {
 	for (int i = 0; i < capacity; i++)
 		table[i].value = table[i].frequency = table[i].next = -111111;
@@ -33,6 +33,8 @@ Bag::Bag(unsigned int cap)
 
 void Bag::add(TElem element)
 {
+	if (firstEmpty == capacity)
+		resize();
 	int index = h(element);
 	if (table[index].value == -111111)
 	{
@@ -54,8 +56,6 @@ void Bag::add(TElem element)
 				return;
 			}
 		}
-		if (firstEmpty == capacity)
-			resize();
 		table[firstEmpty].value = element;
 		table[firstEmpty].frequency = 1;
 		table[current].next = firstEmpty;
