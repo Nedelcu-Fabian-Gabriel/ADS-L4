@@ -14,7 +14,6 @@ class Bag
 	friend class BagIterator;
 
 private:
-public: //-------------------------------------------temporary
 	struct Element
 	{
 		TElem value;

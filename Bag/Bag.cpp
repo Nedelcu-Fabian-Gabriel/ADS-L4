@@ -7,18 +7,18 @@ using namespace std;
 
 void Bag::resize()
 {
-	Bag* newBag = new Bag{unsigned int (capacity * 2) };
+	Bag* newBag = new Bag{unsigned int (capacity * 1.01 + 1) };
 	for (int i = 0; i < capacity; i++)
 	{
-		for (int j = 0; j < table[i].frequency; j++)
-			newBag->add(table[i].value);
-		//newBag->add(table[i]);
+		/*for (int j = 0; j < table[i].frequency; j++)
+			newBag->add(table[i].value);*/
+		newBag->add(table[i]);
 	}
 	*this = (Bag&&)(*newBag);
 }
 
 Bag::Bag()
-	:capacity{ 15 }, s{ 0 }, table {new Element[capacity]}
+	:capacity{ 17 }, s{ 0 }, table {new Element[capacity]}
 {
 	for (int i = 0; i < capacity; i++)
 		table[i].value = table[i].next = -111111;
@@ -65,37 +65,28 @@ void Bag::add(TElem element)
 	s++;
 }
 
- //void Bag::add(Element element)
-//{
-//	if (firstEmpty == capacity)
-//		resize();
-//	s += element.frequency;
-//	if (table[h(element.value)].value == -111111)
-//	{
-//		table[h(element.value)].value = element.value;
-//		table[h(element.value)].frequency = element.frequency;
-//	}
-//	else if (table[h(element.value)].value == element.value)
-//		table[h(element.value)].frequency++;
-//	else
-//	{
-//		int i;
-//		for (i = h(element.value); table[i].next != -111111; i = table[i].next)
-//			if (table[table[i].next].value == element.value)
-//			{
-//				table[i].frequency += element.frequency;
-//				break;
-//			}
-//		if (table[i].next == -111111)
-//		{
-//			table[firstEmpty].value = element.value;
-//			table[firstEmpty].frequency = element.frequency;
-//			table[i].next = firstEmpty;
-//		}
-//	}
-//	if (table[firstEmpty].value != -111111)
-//		for (firstEmpty; firstEmpty < capacity and table[firstEmpty].value != -111111; firstEmpty++);
-//}
+void Bag::add(Element element)
+{
+	element.next = -111111;
+	if (firstEmpty == capacity)
+		resize();
+	int index = h(element.value);
+	if (table[index].value == -111111)
+	{
+		table[index] = element;
+	}
+	else
+	{
+		int current = index;
+		while (table[current].next != -111111)
+			current = table[current].next;
+		table[firstEmpty] = element;
+		table[current].next = firstEmpty;
+	}
+	if (table[firstEmpty].value != -111111)
+		for (firstEmpty; firstEmpty < capacity and table[firstEmpty].value != -111111; firstEmpty++);
+	s += element.frequency;
+}
 
 
 bool Bag::remove(TElem element)

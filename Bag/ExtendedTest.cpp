@@ -424,7 +424,7 @@ void testQuantity()
 		it.next();
 	}
 	assert(it.valid() == false);
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i <= 10; i++)
 { 
 		for (int j = 40000; j >= -40000; j--)
 {
