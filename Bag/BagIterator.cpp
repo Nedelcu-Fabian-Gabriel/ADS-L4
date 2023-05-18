@@ -4,12 +4,17 @@
 
 using namespace std;
 
-
+//best == theta(1)
+//worst == theta(n)
+//average == theta(n)
 BagIterator::BagIterator(const Bag& c): bag(c)
 {
 	this->first();
 }
 
+//best == theta(1)
+//worst == theta(n)
+//average == theta(n)
 void BagIterator::first()
 {
 	index = 0;
@@ -19,6 +24,9 @@ void BagIterator::first()
 }
 
 
+//best == theta(1)
+//worst == theta(n)
+//average == theta(n)
 void BagIterator::next()
 {
 	if (!valid())
@@ -33,14 +41,14 @@ void BagIterator::next()
 	}
 }
 
-
+//best == worst == average == theta(1)
 bool BagIterator::valid() const
 {
 	return (index < bag.capacity);
 }
 
 
-
+//best == worst == average == theta(1)
 TElem BagIterator::getCurrent() const
 {
 	if (!valid())

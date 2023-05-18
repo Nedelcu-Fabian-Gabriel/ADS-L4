@@ -4,19 +4,18 @@
 #include <iostream>
 using namespace std;
 
-
+//best == theta(n)
+//worst == theta(n^2)
+//average == theta(n) under SUH
 void Bag::resize()
 {
 	Bag* newBag = new Bag{unsigned int (capacity * 1.01 + 1) };
 	for (int i = 0; i < capacity; i++)
-	{
-		/*for (int j = 0; j < table[i].frequency; j++)
-			newBag->add(table[i].value);*/
 		newBag->add(table[i]);
-	}
 	*this = (Bag&&)(*newBag);
 }
 
+//best == worst == average == theta(n)
 Bag::Bag()
 	:capacity{ 17 }, s{ 0 }, table {new Element[capacity]}
 {
@@ -24,6 +23,7 @@ Bag::Bag()
 		table[i].value = table[i].next = -111111;
 }
 
+//best == worst == average == theta(n)
 Bag::Bag(unsigned int cap)
 	:capacity{ cap }, s{ 0 }, table{ new Element[cap] }
 {
@@ -31,6 +31,9 @@ Bag::Bag(unsigned int cap)
 		table[i].value = table[i].frequency = table[i].next = -111111;
 }
 
+//best == theta(1)
+//worst == theta(n)
+//average == theta(1) under SUH
 void Bag::add(TElem element)
 {
 	if (firstEmpty == capacity)
@@ -65,6 +68,9 @@ void Bag::add(TElem element)
 	s++;
 }
 
+//best == theta(1)
+//worst == theta(n)
+//average == theta(1) under SUH
 void Bag::add(Element element)
 {
 	element.next = -111111;
@@ -88,7 +94,9 @@ void Bag::add(Element element)
 	s += element.frequency;
 }
 
-
+//best == theta(1)
+//worst == theta(n)
+//average == theta(1) under SUH
 bool Bag::remove(TElem element)
 {
 	int i = h(element);
@@ -150,6 +158,9 @@ bool Bag::remove(TElem element)
 }
 
 
+//best == theta(1)
+//worst == theta(n)
+//average == theta(1) under SUH
 bool Bag::search(TElem element) const
 {
 	for (int i = h(element); i != -111111; i = table[i].next)
@@ -158,6 +169,9 @@ bool Bag::search(TElem element) const
 	return false;
 }
 
+//best == theta(1)
+//worst == theta(n)
+//average == theta(1) under SUH
 int Bag::nrOccurrences(TElem element) const
 {
 	for (int i = h(element); i != -111111; i = table[i].next)
@@ -166,29 +180,31 @@ int Bag::nrOccurrences(TElem element) const
 	return 0;
 }
 
-
+//best == worst == average == theta(1)
 int Bag::size() const
 {
 	return s;
 }
 
-
+//best == worst == average == theta(1)
 bool Bag::isEmpty() const
 {
 	return (s == 0);
 }
 
+//best == worst == average == theta(1)
 BagIterator Bag::iterator() const
 {
 	return BagIterator(*this);
 }
 
-
+//best == worst == average == theta(1)
 Bag::~Bag()
 {
 	delete[] table;
 }
 
+//best == worst == average == theta(1)
 Bag& Bag::operator=(Bag&& other) noexcept
 {
 	if (this != &other)

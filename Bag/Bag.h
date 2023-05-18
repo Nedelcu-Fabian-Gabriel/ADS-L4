@@ -27,7 +27,7 @@ private:
 	unsigned int h(TElem elem) const
 	{
 		if (elem < 0)
-			elem *= -1;
+			elem = -elem;
 		return elem % capacity;
 	}
 
